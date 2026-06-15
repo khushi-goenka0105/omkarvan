@@ -17,3 +17,12 @@ target/
 
 # Environment
 .env
+
+.DS_Store
+*.zip
+
+node_modules/
+target/
+.idea/
+.vite/
+.env
