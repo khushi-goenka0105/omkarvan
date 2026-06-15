@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function BatchDetailsPage() {
   const { batchId } = useParams();
@@ -30,6 +31,13 @@ function BatchDetailsPage() {
       <p>Batch ID: {batchId}</p>
 
       <h2>Trees</h2>
+
+      <Link
+  to={`/print-labels/${batchId}`}
+  className="bg-green-700 text-white px-4 py-2 rounded"
+>
+  🖨 Print Labels
+</Link>
 
       {trees.map((tree) => (
         <div

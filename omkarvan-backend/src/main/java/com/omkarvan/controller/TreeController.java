@@ -15,6 +15,41 @@ public class TreeController {
     @Autowired
     private TreeRepository treeRepository;
 
+    @GetMapping("/search")
+    public List<Tree> searchTrees(
+            @RequestParam String query
+    ) {
+
+        if (query.startsWith("OMK-")) {
+
+            Tree tree =
+                    treeRepository.findByTreeCode(
+                            query
+                    );
+
+            if (tree == null) {
+                return List.of();
+            }
+
+            return List.of(tree);
+        }
+
+        List<Tree> speciesResults =
+                treeRepository
+                        .findBySpeciesContainingIgnoreCase(
+                                query
+                        );
+
+        if (!speciesResults.isEmpty()) {
+            return speciesResults;
+        }
+
+        return treeRepository
+                .findByDonorNameContainingIgnoreCase(
+                        query
+                );
+    }
+
     @PostMapping
     public Tree createTree(@RequestBody Tree tree) {
 

@@ -11,4 +11,12 @@ public interface TreeRepository extends JpaRepository<Tree, Long> {
 
     List<Tree> findByBatchId(Long batchId);
 
+    List<Tree> findBySpeciesContainingIgnoreCase(
+            String species
+    );
+
+    List<Tree> findByDonorNameContainingIgnoreCase(
+            String donorName
+    );
+
 }

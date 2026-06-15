@@ -23,29 +23,150 @@ function TreeDetails() {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🌳 Tree Information</h1>
+  <div className="min-h-screen bg-green-50 flex items-center justify-center p-6">
 
-      <h2>{tree.species}</h2>
+    <div className="bg-white shadow-xl rounded-3xl max-w-2xl w-full p-8">
 
-      <p>Tree Code: {tree.treeCode}</p>
-      <p>Scientific Name: {tree.scientificName}</p>
-      <p>Section: {tree.section}</p>
-      <p>Source: {tree.source}</p>
-      {tree.source === "DONATED" && tree.donor && (
-  <>
-    <h3>🌳 Donor Information</h3>
+      <div className="text-center mb-8">
 
-    <p>Name: {tree.donor.name}</p>
-    <p>Phone: {tree.donor.phone}</p>
-    <p>Email: {tree.donor.email}</p>
-    <p>Occasion: {tree.donor.occasion}</p>
-  </>
-)}
-      <p>Latitude: {tree.latitude}</p>
-      <p>Longitude: {tree.longitude}</p>
+        <div className="text-6xl mb-4">
+          🌳
+        </div>
+
+        <h1 className="text-4xl font-bold text-green-700">
+          {tree.species}
+        </h1>
+
+        <p className="text-gray-500 mt-2">
+          Tree Information
+        </p>
+
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+
+        <div className="bg-gray-50 p-4 rounded-xl">
+          <p className="text-gray-500 text-sm">
+            Tree Code
+          </p>
+
+          <p className="font-semibold">
+            {tree.treeCode}
+          </p>
+        </div>
+
+        <div className="bg-gray-50 p-4 rounded-xl">
+          <p className="text-gray-500 text-sm">
+            Scientific Name
+          </p>
+
+          <p className="font-semibold">
+            {tree.scientificName}
+          </p>
+        </div>
+
+        <div className="bg-gray-50 p-4 rounded-xl">
+          <p className="text-gray-500 text-sm">
+            Section
+          </p>
+
+          <p className="font-semibold">
+            {tree.section}
+          </p>
+        </div>
+
+        <div className="bg-gray-50 p-4 rounded-xl">
+          <p className="text-gray-500 text-sm">
+            Source
+          </p>
+
+          <p className="font-semibold">
+            {tree.source}
+          </p>
+        </div>
+
+      </div>
+
+      {tree.source === "DONATED" &&
+        tree.donor && (
+
+        <div className="mt-8">
+
+          <h2 className="text-2xl font-bold mb-4">
+            ❤️ Donor Information
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-4">
+
+            <div className="bg-green-50 p-4 rounded-xl">
+              <p className="text-gray-500 text-sm">
+                Name
+              </p>
+
+              <p className="font-semibold">
+                {tree.donor.name}
+              </p>
+            </div>
+
+            <div className="bg-green-50 p-4 rounded-xl">
+              <p className="text-gray-500 text-sm">
+                Occasion
+              </p>
+
+              <p className="font-semibold">
+                {tree.donor.occasion}
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+      <div className="mt-8">
+
+        <h2 className="text-2xl font-bold mb-4">
+          📍 Location
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-4">
+
+          <div className="bg-gray-50 p-4 rounded-xl">
+            <p className="text-gray-500 text-sm">
+              Latitude
+            </p>
+
+            <p className="font-semibold">
+              {tree.latitude}
+            </p>
+          </div>
+
+          <div className="bg-gray-50 p-4 rounded-xl">
+            <p className="text-gray-500 text-sm">
+              Longitude
+            </p>
+
+            <p className="font-semibold">
+              {tree.longitude}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div className="mt-10 text-center">
+
+        <p className="text-green-700 font-medium">
+          Thank you for supporting Omkarvan 🌳
+        </p>
+
+      </div>
+
     </div>
-  );
+
+  </div>
+);
 }
 
 export default TreeDetails;

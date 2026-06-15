@@ -22,33 +22,98 @@ function BatchListPage() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>🌳 Plantation Batches</h1>
+  <div>
+
+    <div className="flex justify-between items-center mb-8">
+
+      <div>
+
+        <h1 className="text-4xl font-bold text-green-700">
+          🌳 Plantation Batches
+        </h1>
+
+        <p className="text-gray-500 mt-2">
+          Manage and track plantation drives
+        </p>
+
+      </div>
+
+    </div>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
       {batches.map((batch) => (
+
         <div
           key={batch.id}
-          style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "10px",
-          }}
+          className="
+            bg-white
+            rounded-2xl
+            shadow-md
+            hover:shadow-xl
+            transition
+            duration-300
+            p-6
+          "
         >
-          <Link to={`/batches/${batch.id}`}>
-            <h3>{batch.batchCode}</h3>
+
+          <div className="flex justify-between items-start mb-4">
+
+            <div>
+
+              <h2 className="text-xl font-bold text-green-700">
+                📦 {batch.batchCode}
+              </h2>
+
+              <p className="text-gray-500">
+                {batch.eventName}
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="space-y-2 mb-6">
+
+            <p>
+              <span className="font-semibold">
+                Source:
+              </span>{" "}
+              {batch.source}
+            </p>
+
+            <p>
+              <span className="font-semibold">
+                Total Trees:
+              </span>{" "}
+              {batch.totalTrees}
+            </p>
+
+          </div>
+
+          <Link
+            to={`/batches/${batch.id}`}
+            className="
+              inline-block
+              bg-green-700
+              text-white
+              px-4
+              py-2
+              rounded-lg
+              hover:bg-green-800
+            "
+          >
+            View Details →
           </Link>
 
-          <p>Event: {batch.eventName}</p>
-
-          <p>Source: {batch.source}</p>
-
-          <p>
-            Total Trees: {batch.totalTrees}
-          </p>
         </div>
+
       ))}
+
     </div>
-  );
+
+  </div>
+);
 }
 
 export default BatchListPage;
