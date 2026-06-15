@@ -1,0 +1,32 @@
+import axios from "axios";
+
+const BASE_URL =
+  "http://localhost:8080/api";
+
+export const getAllTrees = () => {
+  return axios.get(
+    `${BASE_URL}/trees`
+  );
+};
+
+export const createTree = (tree) => {
+  return axios.post(
+    `${BASE_URL}/trees`,
+    tree
+  );
+};
+
+export const createDonor = (donor) => {
+  return axios.post(
+    `${BASE_URL}/donors`,
+    donor
+  );
+};
+
+export const getTreeByCode = (
+  treeCode
+) => {
+  return axios.get(
+    `${BASE_URL}/trees/${treeCode}`
+  );
+};
