@@ -48,11 +48,17 @@ function BatchDetailsPage() {
             marginBottom: "10px",
           }}
         >
-          <p>
-            <strong>{tree.treeCode}</strong>
-          </p>
+          <Link
+  to={`/tree/${tree.treeCode}`}
+  className="text-blue-600 font-bold hover:underline"
+>
+  {tree.treeCode}
+</Link>
 
           <p>{tree.species}</p>
+          <p>
+  Zone: {tree.section}
+</p>
 
           <p>Status: {tree.status}</p>
         </div>

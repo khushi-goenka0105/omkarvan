@@ -13,5 +13,7 @@ public class BatchRequest {
 
     private String eventName;
 
+    private String section;
+
     private List<BatchSpeciesRequest> speciesList;
 }

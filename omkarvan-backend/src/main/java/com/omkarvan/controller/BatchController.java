@@ -108,6 +108,10 @@ public class BatchController {
                         item.getSpecies()
                 );
 
+                tree.setSection(
+                        request.getSection()
+                );
+
                 tree.setSource(
                         request.getSource()
                 );

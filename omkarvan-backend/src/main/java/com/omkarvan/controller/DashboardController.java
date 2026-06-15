@@ -5,7 +5,9 @@ import com.omkarvan.repository.DonorRepository;
 import com.omkarvan.repository.PlantationBatchRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,6 +27,29 @@ public class DashboardController {
         this.treeRepository = treeRepository;
         this.donorRepository = donorRepository;
         this.batchRepository = batchRepository;
+    }
+
+    @GetMapping("/species")
+    public List<Map<String, Object>> getSpeciesInventory() {
+
+        List<Object[]> data =
+                treeRepository.getSpeciesInventory();
+
+        List<Map<String, Object>> result =
+                new ArrayList<>();
+
+        for (Object[] row : data) {
+
+            Map<String, Object> item =
+                    new HashMap<>();
+
+            item.put("species", row[0]);
+            item.put("count", row[1]);
+
+            result.add(item);
+        }
+
+        return result;
     }
 
     @GetMapping

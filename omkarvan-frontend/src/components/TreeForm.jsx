@@ -36,13 +36,51 @@ function TreeForm({
         />
         <br /><br />
 
-        <input
-          type="text"
-          name="section"
-          placeholder="Section"
-          value={formData.section}
-          onChange={handleChange}
-        />
+        <select
+  name="section"
+  value={formData.section}
+  onChange={handleChange}
+>
+
+  <option value="">
+    Select Garden Zone
+  </option>
+
+  <option value="Tulsi Van">
+    🌿 Tulsi Van
+  </option>
+
+  <option value="Butterfly Garden">
+    🦋 Butterfly Garden
+  </option>
+
+  <option value="Fruit Orchard">
+    🍋 Fruit Orchard
+  </option>
+
+  <option value="Waterbody">
+    💧 Waterbody
+  </option>
+
+  <option value="Reflection Zone">
+    🕊 Reflection Zone
+  </option>
+
+  <option value="Om Garden">
+    🕉 Om Garden
+  </option>
+
+  <option value="Medicinal Herb Garden">
+    🌱 Medicinal Herb Garden
+  </option>
+
+  <option value="Flowering Tree Avenue">
+    🌸 Flowering Tree Avenue
+  </option>
+
+</select>
+
+<br /><br />
         <br /><br />
 
         <button

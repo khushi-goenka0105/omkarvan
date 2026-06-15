@@ -3,10 +3,11 @@ import axios from "axios";
 
 function BatchPage() {
   const [batchData, setBatchData] = useState({
-    eventName: "",
-    source: "TEAM",
-    donorId: "",
-  });
+  eventName: "",
+  source: "TEAM",
+  donorId: "",
+  section: "",
+});
 
   const [speciesList, setSpeciesList] = useState([
   {
@@ -69,6 +70,47 @@ const fetchDonors = async () => {
       />
 
       <br /><br />
+
+      <select
+  value={batchData.section}
+  onChange={(e) =>
+    setBatchData({
+      ...batchData,
+      section: e.target.value,
+    })
+  }
+>
+  <option value="">
+    Select Garden Zone
+  </option>
+
+  <option value="Tulsi Van">
+    🌿 Tulsi Van
+  </option>
+
+  <option value="Butterfly Garden">
+    🦋 Butterfly Garden
+  </option>
+
+  <option value="Fruit Orchard">
+    🍋 Fruit Orchard
+  </option>
+
+  <option value="Waterbody">
+    💧 Waterbody
+  </option>
+
+  <option value="Reflection Zone">
+    🕊 Reflection Zone
+  </option>
+
+  <option value="Om Garden">
+    🕉 Om Garden
+  </option>
+
+</select>
+
+<br /><br />
 
       <select
         value={batchData.source}

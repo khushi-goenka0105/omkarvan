@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import hero from "../assets/hero.jpg";
 
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -8,9 +10,15 @@ function Dashboard() {
     batches: 0,
   });
 
+  const [speciesInventory, setSpeciesInventory] =
+  useState([]);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetchStats();
-  }, []);
+  fetchStats();
+  fetchSpeciesInventory();
+}, []);
 
   const fetchStats = async () => {
     try {
@@ -24,53 +32,98 @@ function Dashboard() {
     }
   };
 
+  const fetchSpeciesInventory = async () => {
+  try {
+
+    const response = await axios.get(
+      "http://localhost:8080/api/dashboard/species"
+    );
+
+    setSpeciesInventory(response.data);
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+
   return (
   <div>
+    <div className="bg-white rounded-3xl shadow-xl overflow-hidden mb-10">
 
-    <div className="mb-8">
-      <h1 className="text-5xl font-bold text-slate-800">
-        🌳 Omkarvan Dashboard
+  <div className="grid lg:grid-cols-2">
+
+    <div className="p-10 flex flex-col justify-center">
+
+      <div className="text-sm font-semibold text-emerald-700 mb-4">
+        OMKARVAN • 25,000 SQ FT
+      </div>
+
+      <h1 className="text-5xl font-bold text-slate-800 mb-4">
+        🌳 Omkarvan
       </h1>
 
-      <p className="text-gray-500 mt-2">
-        A sacred space of remembrance, reflection and rejuvenation
+      <p className="text-2xl text-slate-600 mb-6">
+        A Sacred Space of Remembrance,
+        Reflection and Rejuvenation
       </p>
+
+      <p className="text-slate-500 mb-8">
+        Memorial garden management, donor tracking,
+        plantation drives and QR-enabled tree stories.
+      </p>
+
+      <div className="flex gap-4">
+
+        <div className="bg-emerald-50 px-5 py-3 rounded-xl">
+          <div className="text-2xl font-bold">
+            {stats.trees}
+          </div>
+          <div className="text-sm">
+            Trees
+          </div>
+        </div>
+
+        <div className="bg-blue-50 px-5 py-3 rounded-xl">
+          <div className="text-2xl font-bold">
+            {stats.donors}
+          </div>
+          <div className="text-sm">
+            Donors
+          </div>
+        </div>
+
+        <div className="bg-orange-50 px-5 py-3 rounded-xl">
+          <div className="text-2xl font-bold">
+            {stats.batches}
+          </div>
+          <div className="text-sm">
+            Drives
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
-    {/* Stats */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-
-      <div className="bg-white p-6 rounded-2xl shadow">
-        <p className="text-gray-500">
-          Total Trees
-        </p>
-
-        <h2 className="text-5xl font-bold text-emerald-600 mt-2">
-          {stats.trees}
-        </h2>
-      </div>
-
-      <div className="bg-white p-6 rounded-2xl shadow">
-        <p className="text-gray-500">
-          Total Donors
-        </p>
-
-        <h2 className="text-5xl font-bold text-blue-600 mt-2">
-          {stats.donors}
-        </h2>
-      </div>
-
-      <div className="bg-white p-6 rounded-2xl shadow">
-        <p className="text-gray-500">
-          Plantation Drives
-        </p>
-
-        <h2 className="text-5xl font-bold text-orange-500 mt-2">
-          {stats.batches}
-        </h2>
-      </div>
-
+    <div>
+      <img
+        src={hero}
+        alt="Omkarvan Master Plan"
+        className="w-full h-full object-cover"
+      />
     </div>
+
+  </div>
+
+</div>
+
+    <div className="mb-8">
+        
+    </div>
+
+    
+
+    
 
     <div className="grid lg:grid-cols-2 gap-8">
 
@@ -78,72 +131,106 @@ function Dashboard() {
       <div className="bg-white rounded-2xl shadow p-6">
 
         <h2 className="text-2xl font-bold mb-4">
-          🌱 Trees Needed
+          🌳 Current Tree Inventory
         </h2>
 
         <div className="space-y-3">
 
-          <div className="flex justify-between">
-            <span>Neem</span>
-            <span className="font-bold">
-              20 Needed
-            </span>
-          </div>
+  {speciesInventory.map((item) => (
 
-          <div className="flex justify-between">
-            <span>Peepal</span>
-            <span className="font-bold">
-              15 Needed
-            </span>
-          </div>
+    <div
+      key={item.species}
+      className="flex justify-between"
+    >
 
-          <div className="flex justify-between">
-            <span>Mango</span>
-            <span className="font-bold">
-              10 Needed
-            </span>
-          </div>
+      <span>
+        {item.species}
+      </span>
 
-        </div>
+      <span className="font-bold">
+        {item.count}
+      </span>
+
+    </div>
+
+  ))}
+
+</div>
 
       </div>
 
       {/* Garden Zones */}
       <div className="bg-white rounded-2xl shadow p-6">
 
-        <h2 className="text-2xl font-bold mb-4">
-          🗺 Garden Zones
-        </h2>
+  <h2 className="text-2xl font-bold mb-4">
+    🗺 Garden Zones
+  </h2>
 
-        <div className="grid grid-cols-2 gap-3">
+  <div className="grid grid-cols-2 gap-4">
 
-          <div className="bg-green-50 p-3 rounded-xl">
-            Tulsi Van
-          </div>
+    <div className="bg-emerald-50 p-4 rounded-xl">
+      <h3 className="font-bold">
+        🌿 Tulsi Van
+      </h3>
 
-          <div className="bg-green-50 p-3 rounded-xl">
-            Butterfly Garden
-          </div>
+      <p className="text-sm text-gray-600 mt-1">
+        Spiritual & sacred zone
+      </p>
+    </div>
 
-          <div className="bg-green-50 p-3 rounded-xl">
-            Fruit Orchard
-          </div>
+    <div className="bg-pink-50 p-4 rounded-xl">
+      <h3 className="font-bold">
+        🦋 Butterfly Garden
+      </h3>
 
-          <div className="bg-green-50 p-3 rounded-xl">
-            Herb Garden
-          </div>
+      <p className="text-sm text-gray-600 mt-1">
+        Pollinator habitat
+      </p>
+    </div>
 
-          <div className="bg-green-50 p-3 rounded-xl">
-            Reflection Zone
-          </div>
+    <div className="bg-yellow-50 p-4 rounded-xl">
+      <h3 className="font-bold">
+        🍋 Fruit Orchard
+      </h3>
 
-          <div className="bg-green-50 p-3 rounded-xl">
-            Om Garden
-          </div>
+      <p className="text-sm text-gray-600 mt-1">
+        Community fruit trees
+      </p>
+    </div>
 
-        </div>
+    <div className="bg-blue-50 p-4 rounded-xl">
+      <h3 className="font-bold">
+        💧 Waterbody
+      </h3>
 
-      </div>
+      <p className="text-sm text-gray-600 mt-1">
+        Wellness & reflection
+      </p>
+    </div>
+
+    <div className="bg-purple-50 p-4 rounded-xl">
+      <h3 className="font-bold">
+        🕊 Reflection Zone
+      </h3>
+
+      <p className="text-sm text-gray-600 mt-1">
+        Peaceful seating area
+      </p>
+    </div>
+
+    <div className="bg-orange-50 p-4 rounded-xl">
+      <h3 className="font-bold">
+        🕉 Om Garden
+      </h3>
+
+      <p className="text-sm text-gray-600 mt-1">
+        Central meditation space
+      </p>
+    </div>
+
+  </div>
+
+</div>
 
       {/* Recent Plantation Drives */}
       <div className="bg-white rounded-2xl shadow p-6">
@@ -187,17 +274,36 @@ function Dashboard() {
 
         <div className="space-y-3">
 
-          <button className="w-full bg-emerald-600 text-white py-3 rounded-xl">
+          <button 
+            className="w-full bg-emerald-600 text-white py-3 rounded-xl"
+            onClick={() => navigate("/batch")}
+          >
             Create Batch
           </button>
 
-          <button className="w-full bg-blue-600 text-white py-3 rounded-xl">
-            Search Trees
-          </button>
+          <button
 
-          <button className="w-full bg-orange-500 text-white py-3 rounded-xl">
-            Print Labels
-          </button>
+  onClick={() => navigate("/search")}
+
+  className="w-full bg-blue-600 text-white py-3 rounded-xl"
+
+>
+
+  Search Trees
+
+</button>
+
+<button
+
+  onClick={() => navigate("/batches")}
+
+  className="w-full bg-orange-500 text-white py-3 rounded-xl"
+
+>
+
+  View Batches
+
+</button>
 
         </div>
 
