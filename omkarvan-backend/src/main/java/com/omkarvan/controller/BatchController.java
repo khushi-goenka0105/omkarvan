@@ -150,10 +150,13 @@ public class BatchController {
         PlantationBatch batch =
                 new PlantationBatch();
 
+        batchRepository.save(batch);
+
         batch.setBatchCode(
-                "BATCH-" +
-                        (batchRepository.count() + 1)
+                "BATCH-" + batch.getId()
         );
+
+        batchRepository.save(batch);
 
         batch.setSource(
                 request.getSource()
@@ -196,15 +199,16 @@ public class BatchController {
 
                 Tree tree = new Tree();
 
-                long count =
-                        treeRepository.count() + 1;
+                treeRepository.save(tree);
 
                 tree.setTreeCode(
                         String.format(
                                 "OMK-%06d",
-                                count
+                                tree.getId()
                         )
                 );
+
+                treeRepository.save(tree);
 
                 tree.setSpecies(
                         item.getSpecies()
