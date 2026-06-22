@@ -25,6 +25,7 @@ function BatchPage() {
   });
   const [successData, setSuccessData] = useState(null);
   const [submissionError, setSubmissionError] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const validateForm = () => {
     let valid = true;
@@ -96,15 +97,23 @@ function BatchPage() {
   };
 
   const handleGenerate = async () => {
-    setSuccessData(null);
-    setSubmissionError("");
 
-    if (!validateForm()) {
-      return;
-    }
+  if (isGenerating) return;
 
+  setSuccessData(null);
+  setSubmissionError("");
+
+  if (!validateForm()) {
+    return;
+  }
+
+  try {
+    setIsGenerating(true);
     await generateBatch();
-  };
+  } finally {
+    setIsGenerating(false);
+  }
+};
 
   const resetForm = () => {
     setBatchData({
@@ -543,12 +552,13 @@ function BatchPage() {
 
         <div className="mt-8">
           <button
-            type="button"
-            onClick={handleGenerate}
-            className="w-full rounded-[2rem] bg-emerald-700 px-8 py-5 text-xl font-semibold text-white shadow-2xl shadow-emerald-700/30 transition hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-300 sm:w-auto sm:px-10"
-          >
-            Generate Batch 🌳
-          </button>
+  type="button"
+  onClick={handleGenerate}
+  disabled={isGenerating}
+  className="w-full rounded-[2rem] bg-emerald-700 px-8 py-5 text-xl font-semibold text-white shadow-2xl shadow-emerald-700/30 transition hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-300 disabled:opacity-50 disabled:cursor-not-allowed sm:w-auto sm:px-10"
+>
+  {isGenerating ? "Generating..." : "Generate Batch 🌳"}
+</button>
         </div>
       </div>
     </div>
