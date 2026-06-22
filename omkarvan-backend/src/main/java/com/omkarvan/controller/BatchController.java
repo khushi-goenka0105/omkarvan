@@ -28,6 +28,108 @@ public class BatchController {
     @Autowired
     private DonorRepository donorRepository;
 
+    private String getScientificName(String species) {
+
+        switch (species.toLowerCase()) {
+
+            case "mango":
+                return "Mangifera indica";
+
+            case "neem":
+                return "Azadirachta indica";
+
+            case "peepal":
+                return "Ficus religiosa";
+
+            case "banana":
+                return "Musa paradisiaca";
+
+            case "banyan":
+                return "Ficus benghalensis";
+
+            case "ashoka":
+                return "Saraca asoca";
+
+            case "arjun":
+                return "Terminalia arjuna";
+
+            case "kadamb":
+                return "Neolamarckia cadamba";
+
+            case "jamun":
+                return "Syzygium cumini";
+
+            case "amla":
+                return "Phyllanthus emblica";
+
+            case "guava":
+                return "Psidium guajava";
+
+            case "lemon":
+                return "Citrus limon";
+
+            case "pomegranate":
+                return "Punica granatum";
+
+            case "tulsi":
+                return "Ocimum tenuiflorum";
+
+            case "aloe vera":
+                return "Aloe barbadensis Miller";
+
+            case "brahmi":
+                return "Bacopa monnieri";
+
+            case "ashwagandha":
+                return "Withania somnifera";
+
+            case "lemongrass":
+                return "Cymbopogon citratus";
+
+            case "giloy":
+                return "Tinospora cordifolia";
+
+            case "kachnar":
+                return "Bauhinia variegata";
+
+            case "parijat":
+                return "Nyctanthes arbor-tristis";
+
+            case "gulmohar":
+                return "Delonix regia";
+
+            case "amaltas":
+                return "Cassia fistula";
+
+            case "tabebuia":
+                return "Tabebuia rosea";
+
+            case "lagerstroemia":
+                return "Lagerstroemia speciosa";
+
+            case "bamboo":
+                return "Bambusoideae";
+
+            case "hibiscus":
+                return "Hibiscus rosa-sinensis";
+
+            case "ixora":
+                return "Ixora coccinea";
+
+            case "lantana":
+                return "Lantana camara";
+
+            case "cosmos":
+                return "Cosmos bipinnatus";
+
+            case "zinnia":
+                return "Zinnia elegans";
+
+            default:
+                return "Scientific name not available";
+        }
+    }
+
     @GetMapping("/{batchId}/trees")
     public List<Tree> getTreesByBatch(
             @PathVariable Long batchId
@@ -108,6 +210,10 @@ public class BatchController {
                         item.getSpecies()
                 );
 
+                tree.setScientificName(
+                        getScientificName(item.getSpecies())
+                );
+
                 tree.setSection(
                         request.getSection()
                 );
@@ -116,8 +222,12 @@ public class BatchController {
                         request.getSource()
                 );
 
+                tree.setPlantDate(
+                        LocalDate.now()
+                );
+
                 tree.setStatus(
-                        "AVAILABLE"
+                        "PLANTED"
                 );
 
                 tree.setBatch(batch);
@@ -127,6 +237,8 @@ public class BatchController {
                 treeRepository.save(tree);
             }
         }
+
+
 
         return "Trees Generated Successfully";
     }
