@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASE_URL =
-  "http://localhost:8080/api";
+  "${API_BASE_URL}/api";
 
 export const getAllTrees = () => {
   return axios.get(

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import QRCode from "react-qr-code";
 import axios from "axios";
 import { PUBLIC_URL } from "../config";
+import { API_BASE_URL } from "../config";
 
 function PrintLabelsPage() {
 
@@ -18,7 +19,7 @@ function PrintLabelsPage() {
 
     const response =
       await axios.get(
-        `http://localhost:8080/api/batches/${batchId}/trees`
+        `${API_BASE_URL}/api/batches/${batchId}/trees`
       );
 
     setTrees(response.data);
@@ -40,12 +41,26 @@ function PrintLabelsPage() {
 
           <div
             key={tree.id}
-            className="border p-4 text-center"
+            className="
+  border-2 border-emerald-200
+  rounded-2xl
+  p-6
+  text-center
+  bg-white
+  shadow-sm
+"
           >
 
-            <h3 className="font-bold mb-4">
-              {tree.treeCode}
-            </h3>
+            <div className="mb-4">
+  <h3 className="text-lg font-bold">
+    {tree.treeCode}
+  </h3>
+
+  <p className="text-sm text-slate-600 mt-1">
+    {tree.species.charAt(0).toUpperCase() +
+      tree.species.slice(1)}
+  </p>
+</div>
 
             <QRCode
               value={
@@ -53,6 +68,11 @@ function PrintLabelsPage() {
               }
               size={120}
             />
+            <p className="mt-3 text-xs text-slate-500">
+
+    Scan to view tree profile
+
+  </p>
 
           </div>
 
